@@ -78,7 +78,12 @@ The rationale for the fast dev run phase is to facilitate quick fails (i.e., cod
 
 To facilitate the submission during the testing phase, we have prepared some trial examples for submitting. Our team believe in protecting your hard work in this challenge and hence, provided a way to protect your IP without requiring you to open-source your submissions. In addition, we provide an single line command to prepare your submission in accordance to the submission platform. 
 
-To submit, just run the following command inside the docker:
+For submission, we will need to run the following command `inside the docker container`:
+```bash
+python3 -m pip install pip-chill
+```
+
+To submit, just run the following command `inside the docker container`:
 ```python 
 python3 save_for_submission.py -c /results/WaveVoiceNet__learning_rate=0.001_fast_dev_run/fast_dev_run.yaml
 ```
@@ -88,11 +93,11 @@ which will generate the following outputs:
 ```
 
 
-
-With the .zip file, you submit it to our Codabench challenge website. The following steps will guide you towards submissions:
+With the .zip file, submit it to our Codabench challenge website. The following steps will guide you towards submissions:
 1. Register a Codabench account in www.codabench.org (please use the same email registered with your affliation)
 2. Visit the challenge website at https://www.codabench.org/competitions/10539/#/.
 3. Under "My Submissions" tab, accept the terms and conditions, then register for our challenge.
+4. Thereafter, go to the "My submissions" tab, there should be an option of `Trial submission` and `Official submission`. Select `Trial submission` to access if your code is submitting correctly. 
 
 If you have previously registered to us through our registration form, you will be whitelisted which will not require approval.
 
