@@ -26,11 +26,5 @@ RUN pip install pystoi \
 
 
 
-# COPY evaluate_metrics.py .
-# COPY /ICASSP2026ChallengeDataset/ /dataset/
-# CMD ["python3", "evaluate_metrics.py", "--help"]
-
-
-
 
 
