@@ -36,7 +36,7 @@ def _validate(trainer, data_module, model_name, best_ckpt, model_params, save_di
 
 
     best_ckpt = ckpt_callback.best_model_path
-    logger.info("The best model can be found in ", best_ckpt)
+    logger.info(f"The best model can be found in {best_ckpt}")
     model_cls       = getattr(models, model_name)
     best_model = model_cls.load_from_checkpoint(best_ckpt, **model_params)
 
@@ -82,7 +82,8 @@ if __name__ == "__main__":
 
     ckpt_callback = ModelCheckpoint(
         monitor="val/loss", 
-        filename='{epoch:03d}-{val/loss:.2f}'
+        filename='{epoch:03d}-{val/loss:.2f}',
+        mode="min",
     )
     pl_logger = CSVLogger("logs", name=f"{model_name}_{model_params_str}_fast_dev_run")
 
@@ -105,7 +106,8 @@ if __name__ == "__main__":
     ckpt_callback = ModelCheckpoint(
         monitor="val/loss", 
         save_top_k=5,
-        filename='{epoch:03d}-{step}-{val/loss:.2f}'
+        filename='{epoch:03d}-{step}-{val/loss:.2f}',
+        mode="min",
     )
     pl_logger = CSVLogger("logs", name=f"{model_name}_{model_params_str}")
     trainer = pl.Trainer(
