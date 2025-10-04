@@ -91,27 +91,19 @@ which will generate the following outputs:
 ```text
 /results/WaveVoiceNet__learning_rate=0.001_fast_dev_run/model_submission.zip
 ```
+Download the zip file.
 
 
 With the .zip file, submit it to our Codabench challenge website. The following steps will guide you towards submissions:
-1. Register a Codabench account in www.codabench.org (please use the same email registered with your affliation)
-2. Visit the challenge website at https://www.codabench.org/competitions/10539/#/.
-3. Under "My Submissions" tab, accept the terms and conditions, then register for our challenge.
-4. Thereafter, go to the "My submissions" tab, there should be an option of `Trial submission` and `Official submission`. Select `Trial submission` to access if your code is submitting correctly. 
+1. Register a Codabench account in www.codabench.org (please use the same email registered in our registration form as we have added them to the whitelist in 1.)
+2. Visit our challenge websites at https://www.codabench.org/competitions/10539/?secret_key=a16e7724-eaac-4bb6-80a7-d57081ba3074 for fast development trials and https://www.codabench.org/competitions/10857/?secret_key=46e8f79c-39d6-4843-83e5-86f8311e756d for official submission. For now, go to the former link for quick tests.
+.
+3. Under "My Submissions" tab, accept the terms and conditions, then register for our challenge. If you have not sign up using our registration form, please wait for our approval.
+4. Check that you have choose to submit as "Yourself" or your organization 
+5. Thereafter, go to the "My submissions" tab. Click the clip icon and upload the zip file. It will take a while to run (took about 2 mins for the fast development trial with our baseline). If your submission is successful, you should see a score after you refresh.
+6. Add your score to the leadership board.
 
-If you have previously registered to us through our registration form, you will be whitelisted which will not require approval.
-
-
-With the .zip file, you can submit it to our challenge through two methods: website and command line
-
-For UI, in https://www.codabench.org/competitions/10539/#/:
-1. Under "My submissions" tab 
-2. Check that you have choose to submit as "Yourself" or your organization 
-3. Click the clip button on the pop-up window 
-4. Attach the zip file, then submit
-
-
-Please note that since the evaluation is done on our server, we note that bigger models will take substantially longer time to run (please also note that we will only supple a RTX6000 Ada per run). As such, we have restricted everyone to `one official` and `five trial` submissions per day during the validation period and testing period.
+Please note that since the evaluation is done on our server, we note that bigger models will take substantially longer time to run (please also note that we will only supply one RTX6000 Ada per run). As such, we have restricted everyone to `one official` and `30 trials` submissions per day during the validation period and testing period. 
 
 
 ## 6. Innovate your new model!
