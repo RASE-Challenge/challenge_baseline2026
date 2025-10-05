@@ -3,3 +3,5 @@ dataset
 results
 *.ckpt
 *.csv
+src/logs/apt_mark_logs/
+src/logs/pip_freeze_logs/
