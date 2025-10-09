@@ -78,14 +78,21 @@ The rationale for the fast dev run phase is to facilitate quick fails (i.e., cod
 
 To facilitate the submission during the testing phase, we have prepared some trial examples for submitting. Our team believe in protecting your hard work in this challenge and hence, provided a way to protect your IP without requiring you to open-source your submissions. In addition, we provide an single line command to prepare your submission in accordance to the submission platform. 
 
-For submission, we will need to run the following command `inside the docker container`:
+For submission, you will need to run the following command `inside the docker container` (only one-time):
 ```bash
 python3 -m pip install pip-chill
+echo "Updating package list..."
+apt-get update -y
+
+echo "Installing git..."
+apt-get install -y git
+
+git pull # this will update the save_for_submission file
 ```
 
 To submit, just run the following command `inside the docker container`:
 ```python 
-python3 save_for_submission.py -c /results/WaveVoiceNet__learning_rate=0.001_fast_dev_run/fast_dev_run.yaml
+python3 /src/save_for_submission.py -c /results/WaveVoiceNet__learning_rate=0.001_fast_dev_run/fast_dev_run.yaml
 ```
 which will generate the following outputs:
 ```text
@@ -148,6 +155,21 @@ Make sure that all your model files are encapsulated within the folder **src/mod
 Thank you and enjoy your modelling!
 
 
+## 🧩 Framework Overview
 
+This framework is built using:
 
+- 🐳 **[Docker](https://www.docker.com/):** for reproducible environments 
+- ⚡ **[PyTorch Lightning](https://github.com/Lightning-AI/pytorch-lightning):** for scalable and clean model training [1]
+- 🔥 **[PyTorch](https://pytorch.org/):** for flexible deep learning model design [2]
+- 🎙️ **WaveVoiceNet :** our implementation of baseline model in [3]
+- 🧮 **[Codabench](https://www.codabench.org/):** for benchmark evaluation and automated submission management [4] 
+
+**References**  
+[1] W. Falcon et al., “PyTorch Lightning,” GitHub repository, 2019. Available: https://github.com/Lightning-AI/pytorch-lightning
+[2] A. Paszke et al., “PyTorch: An imperative style, high-performance deep learning library,” in Proc. Adv. in Neural Info. Process. Syst., vol. 32, 2019, pp. 8024–8035.
+[3] C. Xu, Z. Li, H. Zhang, A. S. Rathore, H. Li, C. Song, K. Wang, and W. Xu, “WaveEar: Exploring a mmwave-based
+noise-resistant speech sensing for voice-user interface,” in Proc.
+Int. Conf. Mobile Syst. Applications Serv., 2019, p. 14–26.
+[4] S. Pavao, B. Pfahringer, and E. Frank, “Codabench: A benchmarking platform for reusable research,” J. Mach. Learn. Res., vol. 23, no. 1, pp. 1–6, 2022.
 
