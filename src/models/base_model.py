@@ -9,6 +9,34 @@ import pytorch_lightning as pl
 import metrics
 import time
 
+class CSMFCC_FN:
+    def __call__(self, ref, deg):
+        return metrics.mfcc_cosine_similarity(ref, deg, fs=8000)
+    @staticmethod
+    def min():
+        return -1.0
+
+class NBPESQ_FN:
+    def __call__(self, ref, deg):
+        return metrics.nbpesq(ref, deg, fs=8000)
+    @staticmethod
+    def min():
+        return 1.0 
+class DNSMOS_OVRL:
+    def __call__(self, ref, deg):
+        return metrics.DNSMOS_OVRL(deg, fs=8000)
+        
+    @staticmethod
+    def min():
+        return 1.0 
+
+class ESTOI_FN:
+    def __call__(self, ref, deg):
+        return metrics.estoi(ref, deg, fs=8000)
+
+    @staticmethod
+    def min():
+        return 0.0
 class BaseModel(pl.LightningModule):
 
     def __init__(self):
@@ -24,7 +52,10 @@ class BaseModel(pl.LightningModule):
         
         self.heavy_eval = False
 
-
+        self.csmfcc_fn = CSMFCC_FN()
+        self.pesq_fn = NBPESQ_FN()
+        self.dnsmos_fn = DNSMOS_OVRL()
+        self.estoi_fn = ESTOI_FN()
 
     def common_step(self, batch, batch_idx, mode="train"):
         
@@ -76,7 +107,11 @@ class BaseModel(pl.LightningModule):
             output = []
             for batch_ref, batch_deg in zip(targets, outputs):
                 for ref, deg in zip(batch_ref, batch_deg):
-                    val = fn(ref, deg)
+                    try:
+                        val = fn(ref, deg)
+                    except Exception as e: 
+                        # print(e)
+                        val = fn.min()
                     output.append(val)
 
             if measure_time:
@@ -85,18 +120,17 @@ class BaseModel(pl.LightningModule):
                 print(f"Elapsed time: {end - start:.6f} seconds")
 
             return output
-            
-        csmfcc_fn = lambda ref, deg: metrics.mfcc_cosine_similarity(ref, deg, fs=8000)
-        csmfcc_vals = evaluate_metrics_per_batch(csmfcc_fn, measure_time=True)
-
-        pesq_fn = lambda ref, deg: metrics.nbpesq(ref, deg, fs=8000)
-        pesq_vals = evaluate_metrics_per_batch(pesq_fn, measure_time=True)
-
-        dnsmos_fn = lambda ref, deg: metrics.DNSMOS_OVRL(deg, fs=8000)
-        dnsmos_vals = evaluate_metrics_per_batch(dnsmos_fn, measure_time=True)
         
-        estoi_fn = lambda ref, deg: metrics.estoi(ref, deg, fs=8000)
-        estoi_vals = evaluate_metrics_per_batch(estoi_fn, measure_time=True)
+
+
+        csmfcc_vals = evaluate_metrics_per_batch(self.csmfcc_fn, measure_time=True)
+
+        
+        pesq_vals = evaluate_metrics_per_batch(self.pesq_fn, measure_time=True)
+
+        dnsmos_vals = evaluate_metrics_per_batch(self.dnsmos_fn, measure_time=True)
+        
+        estoi_vals = evaluate_metrics_per_batch(self.estoi_fn, measure_time=True)
 
 
         task_vals = []
